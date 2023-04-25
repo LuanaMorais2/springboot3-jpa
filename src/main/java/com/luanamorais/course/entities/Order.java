@@ -38,11 +38,10 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	private User client;
 
-
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
 
-	@OneToOne(mappedBy = "order", cascade =CascadeType.ALL)
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
 	
 	public Order() {
@@ -99,8 +98,17 @@ public class Order implements Serializable {
 	}
 
 	@JsonIgnore
-	public Set<OrderItem> getItems() {
+	public Set<OrderItem> getItem() {
 		return items;
+	}
+	
+	@JsonIgnore
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
 	}
 	
 	@Override

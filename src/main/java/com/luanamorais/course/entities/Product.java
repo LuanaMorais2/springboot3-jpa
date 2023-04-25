@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -90,13 +88,12 @@ public class Product implements Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	@JsonIgnore
-	public Set<Category> getCategories() {
+	public Set<Category> getCategory() {
 		return categories;
 	}
 	
-	@JsonIgnore
-	public Set<Order> getOrders() {
+	
+	public Set<Order> getOrder() {
 		Set<Order> set = new HashSet<>();
 		for (OrderItem x : items) {
 			set.add(x.getOrder());
